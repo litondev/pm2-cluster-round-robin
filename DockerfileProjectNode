@@ -1,0 +1,13 @@
+FROM node:16.13.0-alpine
+
+WORKDIR /node
+
+COPY ./node/package.json /node
+
+RUN npm install
+
+COPY ./node /node
+
+CMD ["npm","run","pm2-cluster-start"]
+
+EXPOSE 3000

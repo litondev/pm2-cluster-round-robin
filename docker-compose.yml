@@ -1,0 +1,29 @@
+version: '3'
+services:
+
+ project-node:
+  build:
+   context: .
+   dockerfile: DockerfileProjectNode
+  image: project-node
+  container_name: project-node
+  restart: unless-stopped
+  tty: true 
+  networks:
+   - my-project
+
+ webserver:
+  image: nginx:alpine
+  container_name: webserver  
+  restart: unless-stopped
+  tty: true
+  ports:
+   - "8000:80"   
+  volumes:  
+   - ./nginx/:/etc/nginx/conf.d/
+  networks:
+   - my-project
+
+networks:
+ my-project:
+  driver: bridge
